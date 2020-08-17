@@ -2,8 +2,19 @@
 
 exports[`App should render 1`] = `
 <DocumentFragment>
-  <h1>
-    Reden App
-  </h1>
+  <button
+    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="MuiButton-label"
+    >
+      Reden app
+    </span>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </button>
 </DocumentFragment>
 `;
