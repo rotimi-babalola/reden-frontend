@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useSelector } from '../store/index';
+import useChat from '../hooks/useChat';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  topicsWindow: {
+  usersWindow: {
     width: '30%',
     height: '300px',
     borderRight: '1px solid grey',
@@ -43,6 +44,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Dashboard: React.FC = () => {
   const classes = useStyles();
   const { users } = useSelector(state => state);
+  const { createUser } = useChat();
+
+  useEffect(() => {
+    createUser();
+  }, []);
 
   return (
     <Paper className={classes.root} elevation={1}>
@@ -50,17 +56,17 @@ const Dashboard: React.FC = () => {
         Chat App
       </Typography>
       <div className={classes.flex}>
-        <div className={classes.topicsWindow}>
-          {users ? (
-            <Typography>No users</Typography>
-          ) : (
+        <div className={classes.usersWindow}>
+          {users.length ? (
             <List>
               {users.map(user => (
-                <ListItem button key={user.id}>
-                  <ListItemText primary={user} onClick={() => {}} />
+                <ListItem button key={user.userId}>
+                  <ListItemText primary={user.userName} onClick={() => {}} />
                 </ListItem>
               ))}
             </List>
+          ) : (
+            <Typography>No users</Typography>
           )}
         </div>
         <div className={classes.chatWindow}>
@@ -71,7 +77,6 @@ const Dashboard: React.FC = () => {
         <TextField
           label="Send a message"
           className={classes.chatBox}
-          value=""
           onChange={() => {}}
         />
         <Button
