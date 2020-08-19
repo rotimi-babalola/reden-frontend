@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import io from 'socket.io-client';
+import faker from 'faker';
 import { IUser } from 'src/store/types';
 import { addUser } from '../store/actions';
 
@@ -21,7 +22,7 @@ const useChat = () => {
 
   const createUser = () => {
     const userId = uuid();
-    const userName = `User${userId}`;
+    const userName = faker.internet.userName();
     socket.emit('new user', { userId, userName });
   };
 

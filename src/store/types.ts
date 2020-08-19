@@ -17,7 +17,7 @@ export const ADD_NEW_USER = 'ADD_NEW_USER';
 interface AddNewUserAction {
   type: typeof ADD_NEW_USER;
   payload: {
-    user: IUser;
+    user: IUser[];
   };
 }
 

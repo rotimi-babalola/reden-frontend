@@ -52,19 +52,22 @@ const Dashboard: React.FC = () => {
 
   return (
     <Paper className={classes.root} elevation={1}>
-      <Typography variant="h4" component="h4">
+      <Typography variant="h4" component="h4" align="center">
         Chat App
       </Typography>
       <div className={classes.flex}>
         <div className={classes.usersWindow}>
           {users.length ? (
-            <List>
-              {users.map(user => (
-                <ListItem button key={user.userId}>
-                  <ListItemText primary={user.userName} onClick={() => {}} />
-                </ListItem>
-              ))}
-            </List>
+            <>
+              <Typography>Active Users</Typography>
+              <List style={{ maxHeight: '100%', overflow: 'auto' }}>
+                {users.map(user => (
+                  <ListItem button key={user.userId}>
+                    <ListItemText primary={user.userName} onClick={() => {}} />
+                  </ListItem>
+                ))}
+              </List>
+            </>
           ) : (
             <Typography>No users</Typography>
           )}

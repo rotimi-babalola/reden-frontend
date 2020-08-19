@@ -12,7 +12,7 @@ export function appReducer(
     case ADD_NEW_USER:
       return {
         ...state,
-        users: [...state.users, action.payload.user],
+        users: [...action.payload.user],
       };
     default:
       return state;
