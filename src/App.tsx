@@ -1,10 +1,12 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import { Provider } from 'react-redux';
+import Dashboard from './components/Dashboard';
+import { store } from './store/index';
 
 const App: React.FC = () => (
-  <Button color="primary" variant="contained">
-    Reden app
-  </Button>
+  <Provider store={store}>
+    <Dashboard />
+  </Provider>
 );
 
 export default App;
