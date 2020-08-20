@@ -1,4 +1,4 @@
-import { ADD_NEW_USER, AppActions, IAppState } from './types';
+import { ADD_USERS, AppActions, IAppState, REMOVE_USER } from './types';
 
 export const initialState: IAppState = {
   users: [],
@@ -9,10 +9,17 @@ export function appReducer(
   action: AppActions,
 ): IAppState {
   switch (action.type) {
-    case ADD_NEW_USER:
+    case ADD_USERS:
       return {
         ...state,
-        users: [...action.payload.user],
+        users: [...action.payload.users],
+      };
+    case REMOVE_USER:
+      return {
+        ...state,
+        users: state.users.filter(
+          user => action.payload.userId !== user.userId,
+        ),
       };
     default:
       return state;

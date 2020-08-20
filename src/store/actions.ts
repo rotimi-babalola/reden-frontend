@@ -1,10 +1,19 @@
-import { ADD_NEW_USER, AppActions, IUser } from './types';
+import { ADD_USERS, AppActions, IUser, REMOVE_USER } from './types';
 
-export function addUser(user: IUser): AppActions {
+export function addUsers(users: IUser[]): AppActions {
   return {
-    type: ADD_NEW_USER,
+    type: ADD_USERS,
     payload: {
-      user,
+      users,
+    },
+  };
+}
+
+export function removeUser(userId: string): AppActions {
+  return {
+    type: REMOVE_USER,
+    payload: {
+      userId,
     },
   };
 }

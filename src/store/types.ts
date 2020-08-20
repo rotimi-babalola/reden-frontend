@@ -12,13 +12,21 @@ export interface IAppState {
   users: IUser[];
 }
 
-export const ADD_NEW_USER = 'ADD_NEW_USER';
+export const ADD_USERS = 'ADD_USERS';
+export const REMOVE_USER = 'REMOVE_USER';
 
-interface AddNewUserAction {
-  type: typeof ADD_NEW_USER;
+interface AddUsersAction {
+  type: typeof ADD_USERS;
   payload: {
-    user: IUser[];
+    users: IUser[];
   };
 }
 
-export type AppActions = AddNewUserAction;
+interface RemoveUserAction {
+  type: typeof REMOVE_USER;
+  payload: {
+    userId: string;
+  };
+}
+
+export type AppActions = AddUsersAction | RemoveUserAction;
