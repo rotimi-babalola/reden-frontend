@@ -62,8 +62,8 @@ const Dashboard: React.FC = () => {
               <Typography>Active Users</Typography>
               <List style={{ maxHeight: '100%', overflow: 'auto' }}>
                 {users.map(user => (
-                  <ListItem button key={user.userId}>
-                    <ListItemText primary={user.userName} onClick={() => {}} />
+                  <ListItem button key={user}>
+                    <ListItemText primary={user} onClick={() => {}} />
                   </ListItem>
                 ))}
               </List>

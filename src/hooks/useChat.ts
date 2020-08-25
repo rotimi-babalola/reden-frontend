@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 import io from 'socket.io-client';
 import faker from 'faker';
-import { IUser } from 'src/store/types';
+import { IChatMessage } from 'src/store/types';
 import { addUsers, removeUser } from '../store/actions';
 
 const useChat = () => {
@@ -11,12 +10,12 @@ const useChat = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.on('new user', (users: IUser[]) => {
+    socket.on('new user', (users: string[]) => {
       dispatch(addUsers(users));
     });
 
-    socket.on('user disconnected', (userId: string) => {
-      dispatch(removeUser(userId));
+    socket.on('user disconnected', (userName: string) => {
+      dispatch(removeUser(userName));
     });
 
     return () => {
@@ -25,17 +24,23 @@ const useChat = () => {
   }, []);
 
   const createUser = () => {
-    const userId = uuid();
-    const userName = faker.internet.userName();
-    // emit event
-    socket.emit('new user', { userId, userName });
+    let userName;
+    const existingUser = localStorage.getItem('userName');
+    if (existingUser) {
+      socket.emit('new user', { userName: existingUser });
+    } else {
+      userName = faker.internet.userName();
+      localStorage.setItem('userName', userName);
+      // emit event
+      socket.emit('new user', { userName });
+    }
   };
 
-  // const sendMessage = ({ message }) => {
-  //   socketRef.current.emit('newChatMessage', { message });
-  // };
+  const sendMessage = ({ message, userName, id }: IChatMessage) => {
+    socket.emit('chat message', { message, userName, id });
+  };
 
-  return { createUser };
+  return { createUser, sendMessage };
 };
 
 export default useChat;

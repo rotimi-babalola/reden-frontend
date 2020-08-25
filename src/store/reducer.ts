@@ -2,6 +2,7 @@ import { ADD_USERS, AppActions, IAppState, REMOVE_USER } from './types';
 
 export const initialState: IAppState = {
   users: [],
+  chats: [],
 };
 
 export function appReducer(
@@ -17,9 +18,7 @@ export function appReducer(
     case REMOVE_USER:
       return {
         ...state,
-        users: state.users.filter(
-          user => action.payload.userId !== user.userId,
-        ),
+        users: state.users.filter(user => action.payload.userName !== user),
       };
     default:
       return state;
