@@ -24,12 +24,11 @@ const useChat = () => {
   }, []);
 
   const createUser = () => {
-    let userName;
     const existingUser = localStorage.getItem('userName');
     if (existingUser) {
       socket.emit('new user', { userName: existingUser });
     } else {
-      userName = faker.internet.userName();
+      const userName = faker.internet.userName();
       localStorage.setItem('userName', userName);
       // emit event
       socket.emit('new user', { userName });
